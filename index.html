@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Centering the toggle switch and its label */
+        .centered-toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px; /* Adjust the margin as needed */
+        }
+        .label-and-switch {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 320px; /* Adjust based on your design needs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="round-image1" src="OPIPool.png" alt="Decorative Pool Image">
+        <h3>Pool Calculator</h3>
+        <h4>BS EN 15288 - HSG179</h4>
+        <div class="selection-area">
+            <div class="input-group">
+                <label for="shape">Select Pool Shape:</label>
+                <select id="shape" name="shape" aria-label="Select Pool Shape">
+                    <option value="rectangle">Rectangle</option>
+                    <option value="circle">Circle</option>
+                    <option value="oval">Oval</option>
+                </select>
+            </div>
+            <div class="image-container">
+                <img id="pool-shape-image" src="rectangle.png" alt="Selected Pool Shape">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="calculation-type">Calculation Type:</label>
+            <select id="calculation-type" aria-label="Select Calculation Type">
+                <option value="area">Surface Area Only</option>
+                <option value="volume">Include Volume</option>
+            </select>
+        </div>
+
+        <div class="input-group" id="depth-input" style="display: none;">
+            <label for="shallow-depth">Shallow End Depth (mtrs):</label>
+            <input type="number" id="shallow-depth" name="shallow-depth" aria-label="Input Shallow End Depth in meters">
+            <label for="deep-depth">Deep End Depth (mtrs):</label>
+            <input type="number" id="deep-depth" name="deep-depth" aria-label="Input Deep End Depth in meters">
+        </div>
+
+        <div class="input-group rectangle-inputs">
+            <label for="length">Length: A (mtrs):</label>
+            <input type="number" id="length" name="length" aria-label="Input Length for Rectangle Shape in meters">
+            <label for="width">Width: B (mtrs):</label>
+            <input type="number" id="width" name="width" aria-label="Input Width for Rectangle Shape in meters">
+        </div>
+
+        <div class="input-group circle-inputs" style="display: none;">
+            <label for="radius">Radius (mtrs):</label>
+            <input type="number" id="radius" name="radius" aria-label="Input Radius for Circle Shape in meters">
+        </div>
+
+        <div class="input-group oval-inputs" style="display: none;">
+            <label for="major">Major Axis (mtrs):</label>
+            <input type="number" id="major" name="major" aria-label="Input Major Axis for Oval Shape in meters">
+            <label for="minor">Minor Axis (mtrs):</label>
+            <input type="number" id="minor" name="minor" aria-label="Input Minor Axis for Oval Shape in meters">
+        </div>
+		
+       <div class="input-group centered-toggle">
+            <div class="label-and-switch">
+                <label for="show-volume">Show Pool Volume / Hide Data</label>
+                <label class="switch">
+                    <input type="checkbox" id="show-volume" name="show-volume" aria-label="Toggle to show or hide pool volume and data">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+		
+        <button id="calculate">Calculate Occupancy</button>
+        <div class="result" id="result"></div>
+        <div class="formula-box" id="formula-box"></div>
+        <div class="occupancy-box" id="occupancy-box"></div>
+        <div class="occupancy-info">
+		<div class="adjusted-occupancy-box" id="adjusted-occupancy-box"></div>
+
+            <b>Occupancy is based on the surface area calculation of 3 m² per person.</b>
+
+        </div>
+        <br>
+        <img id="round-image2" src="cyber1.png" alt="Cyber Logo">
+        <h4>Cyber - 2024 - v1.0</h4>
+    </div>
+
+    <script src="poolcalculator.js"></script>
+</body>
+</html>
+
