@@ -1,4 +1,4 @@
-/* Basic Reset */
+/* Cyber CSS */
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #31849B;
+    background-color: #1f5361;
     padding: 5px;
 }
 
@@ -18,6 +18,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 40px;
+    box-shadow: inset 0 6px 5px rgba(0, 0, 0, 0.2);
 }
 
 h1, h3, h4, .input-group label, button, .result, .formula-box, .occupancy-box, .occupancy-info {
@@ -74,15 +75,15 @@ button {
     width: 100%;
     padding: 10px;
     border: none;
-    background-color: #13343e;
+    background-color: #9b3184;
     color: white;
     font-size: 18px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 button:hover {
-    background-color: #23768d;
+    background-color: #9b4831;
 }
 
 .result, .formula-box, .occupancy-box {
@@ -97,15 +98,15 @@ button:hover {
 }
 
 .formula-box, .occupancy-box {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .occupancy-info {
-    color: #c25a3d;
-    font-size: 16px;
+    color: #9b3184;
+    font-size: 17px;
     text-align: center;
     margin-top: 5px;
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 /* Switch Style */
@@ -169,69 +170,72 @@ input:checked + .slider:before {
     }
 }
 
-/* Dark Mode Support */
-/*@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #121212;
-        color: #e0e0e0;
-    }
-
-    .container, .result, .formula-box, .occupancy-box {
-        background-color: #333;
-        color: #fff;
-        border-color: #444;
-    }
-
-    .input-group input, select {
-        background-color: #444;
-        color: #fff;
-        border-color: #555;
-    }
-
-    button, .slider {
-        background-color: #555;
-    }
-
-    button:hover {
-        background-color: #666;
-    }
-
-    .switch .slider {
-        background-color: #999;
-    }
-}
 /* Image Resizing */
 #round-image1, #round-image2 {
-    width: 100%; /* Allows image to resize based on container's width */
-    max-width: 100px; /* Maximum size to maintain design integrity */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 50%; /* Keeps the round shape */
-    object-fit: cover; /* Ensures the image covers the area without stretching */
-    display: block; /* Changes display from inline to block */
-    margin: 0 auto 5px; /* Center aligns image and adds space below */
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 5px;
 }
 
 #pool-shape-image {
-    width: 100%; /* Responsive width */
-    max-width:170px; /* Limit maximum width to ensure design consistency */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensures content is fully visible without distortion */
-    display: block; /* Ensures image is block level for easier centering */
-    margin: 0 auto; /* Center the image within its container */
+    width: 100%;
+    max-width:165px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Further adjustments for smaller screens */
 @media (max-width: 600px) {
     #round-image1, #round-image2 {
-        max-width: 80px; /* Slightly smaller images on smaller screens */
+        max-width: 80px;
     }
 
     #pool-shape-image {
-        max-width: 150px; /* Adjust maximum width for smaller screens */
+        max-width: 150px;
     }
 }
+
 #adjusted-occupancy-box {
-    color: #9b3184; /* Change the color as needed */
-    font-size: 20px; /* Adjust the size as needed */
-    font-weight: bold; /* Makes the text bold */
+    color: #9b3184;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Hidden Boxes */
+.hidden {
+    display: none;
+}
+
+/* Occupancy Calculation Info Styling */
+.occupancy-calculation-info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.occupancy-calculation-info li {
+    color: #13343e;
+}
+#adjusted-occupancy-container {
+    padding: 5px;
+    margin-top: 10px; /* Adjust spacing around the container as needed */
+    text-align: center; /* Center the content */
+    /* Add any additional container-specific styles here */
+}
+
+#adjusted-occupancy-box {
+    margin-top: 5px;
+    background-color: #eaf4f9;
+    color: #9b4831;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #31849B;
 }
