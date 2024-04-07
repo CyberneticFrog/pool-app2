@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="container">
-        <img id="round-image1" src="OPIPool.png" alt="Decorative Pool Image">
+        <img id="round-image1" src="OPIPool.png" alt="OPI Pool Image">
         <h3>Pool Calculator</h3>
         <h4>BS EN 15288 - HSG179</h4>
         <div class="selection-area">
@@ -77,7 +77,7 @@
 		
        <div class="input-group centered-toggle">
             <div class="label-and-switch">
-                <label for="show-volume">Show Pool Volume / Hide Data</label>
+                <label for="show-volume">Show/Hide Pool Volume</label>
                 <label class="switch">
                     <input type="checkbox" id="show-volume" name="show-volume" aria-label="Toggle to show or hide pool volume and data">
                     <span class="slider"></span>
@@ -85,19 +85,30 @@
             </div>
         </div>
 		
-        <button id="calculate">Calculate Occupancy</button>
-        <div class="result" id="result"></div>
-        <div class="formula-box" id="formula-box"></div>
-        <div class="occupancy-box" id="occupancy-box"></div>
-        <div class="occupancy-info">
-		<div class="adjusted-occupancy-box" id="adjusted-occupancy-box"></div>
+        <button id="calculate">Calculate</button>
+			<div class="result hidden" id="result"></div>
+			<div class="formula-box hidden" id="formula-box"></div>
+			<div class="occupancy-info hidden" id="occupancy-info"></div>
+			<div id="adjusted-occupancy-container">
+			<div id="adjusted-occupancy-box">
+				Adjusted Occupancy: 80% of Max Occupancy
+			</div>
+		</div>
+			<br>
+		<div class="occupancy-calculation-info">
+			<b>Occupancy based on the following calculation:</b><br>
+			Surface Area Calculation Only = 1 bather per 3m²<br><br>
+			<b>Occupancy based on the following volume calculations: (Avg Depth)</b>
+			<ul>
+				<li>Shallow Water (under 1m) = 1 bather per 2.2m²</li>
+				<li>Standing Water Depth (1-1.5m) = 1 bather per 2.7m²</li>
+				<li>Deep Water (over 1.5m) = 1 bather per 4m²</li>
+			</ul>
+		</div>
 
-            <b>Occupancy is based on the surface area calculation of 3 m² per person.</b>
-
-        </div>
         <br>
         <img id="round-image2" src="cyber1.png" alt="Cyber Logo">
-        <h4>Cyber - 2024 - v1.0</h4>
+        <h4>Cyber - 2024 - v1.1</h4>
     </div>
 
     <script src="poolcalculator.js"></script>
