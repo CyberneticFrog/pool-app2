@@ -5,26 +5,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const calculationTypeSelect = document.getElementById('calculation-type');
     const showVolumeCheckbox = document.getElementById('show-volume');
 
-    // Update pool shape image based on selection
     shapeSelect.addEventListener('change', function() {
         updateShapeImage(this.value);
         toggleInputFields(this.value);
     });
 
-    // Handle the calculate button click and touchend events
     calculateButton.addEventListener('click', handleCalculate);
     calculateButton.addEventListener('touchend', function(event) {
-        event.preventDefault(); // Prevent the mouse event from firing
+        event.preventDefault();
         handleCalculate();
     });
 
-    // Show or hide the depth input based on calculation type selection
     calculationTypeSelect.addEventListener('change', function() {
         document.getElementById('depth-input').style.display = this.value === 'volume' ? '' : 'none';
         calculateVolume();
     });
 
-    // Recalculate volume when the show volume checkbox changes
     showVolumeCheckbox.addEventListener('change', calculateVolume);
 
     function updateShapeImage(shape) {
@@ -45,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleCalculate() {
         calculateVolume();
+
+        // Make elements visible
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('formula-box').classList.remove('hidden');
+        document.querySelector('.occupancy-info').classList.remove('hidden');
     }
 
     function calculateVolume() {
@@ -52,11 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const calculationType = calculationTypeSelect.value;
         const showVolume = showVolumeCheckbox.checked;
         let length, width, radius, major, minor, shallowDepth, deepDepth = 0;
-        let surfaceArea = 0, volume = 0;
-        let formula = '', volumeFormula = '';
-        let occupancy = 0, adjustedOccupancy = 0;
+        let surfaceArea = 0, volume = 0, averageDepth = 0;
+        let formula = '', volumeFormula = '', depthInfo = '';
+        let occupancy = 0, adjustedOccupancy = 0, batherCalculation = '';
 
-        // Determine shape-specific calculations
         switch (shape) {
             case 'rectangle':
                 length = parseFloat(document.getElementById('length').value);
@@ -96,20 +96,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Please enter positive numbers for shallow and deep depths.");
                 return;
             }
-            let averageDepth = (shallowDepth + deepDepth) / 2;
+            averageDepth = (shallowDepth + deepDepth) / 2;
             volume = surfaceArea * averageDepth;
             volumeFormula = `Volume = Surface Area * average depth = ${surfaceArea.toFixed(2)}m² * ${averageDepth.toFixed(2)}m = ${volume.toFixed(2)}m³`;
+            depthInfo = `Average Depth = ${(shallowDepth + deepDepth) / 2}m`;
+
+            // Bather calculations based on depth
+            if (averageDepth < 1) {
+                occupancy = surfaceArea / 2.2;
+                batherCalculation = `Bathers for shallow water (<1m): ${Math.floor(occupancy)} (1 per 2.2m²)`;
+            } else if (averageDepth >= 1 && averageDepth <= 1.5) {
+                occupancy = surfaceArea / 2.7;
+                batherCalculation = `Bathers for standing water (1-1.5m): ${Math.floor(occupancy)} (1 per 2.7m²)`;
+            } else if (averageDepth > 1.5) {
+                occupancy = surfaceArea / 4;
+                batherCalculation = `Bathers for deep water (>1.5m): ${Math.floor(occupancy)} (1 per 4m²)`;
+            }
+        } else {
+            occupancy = surfaceArea / 3;
+            batherCalculation = `Occupancy based on surface area (default): ${Math.floor(occupancy)} people (1 per 3m²)`;
         }
 
-        occupancy = (surfaceArea / 3).toFixed(2);
-        adjustedOccupancy = occupancy * 0.8; // Deduct 20%
+        adjustedOccupancy = occupancy * 0.8; // Adjust occupancy to 80%
 
-        // Update the UI with the results
-        document.getElementById('result').innerText = showVolume && calculationType === 'volume' ? `Pool Volume: ${volume.toFixed(2)} m³` : '';
-        document.getElementById('formula-box').innerText = calculationType === 'volume' ? volumeFormula : formula;
-        document.getElementById('occupancy-box').innerText = `Max Occupancy (based on surface area): ${occupancy} people`;
-        // Display adjusted occupancy
-        document.getElementById('adjusted-occupancy-box').innerText = `Adjusted Occupancy (80% of max): ${adjustedOccupancy.toFixed(0)} people`;
-    }
+        // Display average depth if volume calculation is selected
+        formula += calculationType === 'volume' ? ` | ${depthInfo}` : '';
+
+            // Safely set innerText with checks
+    const setResultText = (id, text) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.innerText = text;
+        } else {
+            console.error(`Element with ID '${id}' not found.`);
+        }
+    };
+
+    setResultText('result', showVolume && calculationType === 'volume' ? `Pool Volume: ${volume.toFixed(2)} m³` : '');
+    setResultText('formula-box', calculationType === 'volume' ? `${volumeFormula} | ${depthInfo}` : formula);
+    setResultText('occupancy-info', batherCalculation);
+    setResultText('adjusted-occupancy-box', `Adjusted Occupancy (80% of max): ${Math.floor(adjustedOccupancy)} people`);
+}
 });
-
